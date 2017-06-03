@@ -1,6 +1,10 @@
 version: 0.{build}
 skip_tags: true
 image: Visual Studio 2013
+environment:
+    matrix:
+        - PF: x64
+        - PF: x32
 configuration: Release
 build_script:
 - if "%PF%" == "x32" (msbuild.exe "C:\projects\build-titanhide\TitanHide\TitanHide.sln" /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /t:Rebuild /p:Configuration=Release;Platform=Win32)
