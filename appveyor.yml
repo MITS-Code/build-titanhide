@@ -1,0 +1,14 @@
+version: 0.{build}
+skip_tags: true
+image: Visual Studio 2013
+configuration: Release
+build_script:
+- if "%PF%" == "x32" (msbuild.exe "C:\projects\build-titanhide\TitanHide\TitanHide.sln" /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /t:Rebuild /p:Configuration=Release;Platform=Win32)
+- if "%PF%" == "x64" (msbuild.exe "C:\projects\build-titanhide\TitanHide\TitanHide.sln" /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /t:Rebuild /p:Configuration=Release;Platform=x64)
+artifacts:
+- path: '\'
+  name: TitanHide-Build.v%APPVEYOR_BUILD_VERSION%.%PF%
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: 6PJOp+cW01YiibFnGYdI2nWHwuA5dDU1YaFQBZUNOrTcGAnklAh2Y0d6f2kuoyp/
