@@ -6,6 +6,8 @@ environment:
         - PF: x64
         - PF: x32
 configuration: Release
+init:
+- cmd: git submodule update --init
 build_script:
 - if "%PF%" == "x32" (msbuild.exe "C:\projects\build-titanhide\TitanHide\TitanHide.sln" /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /t:Rebuild /p:Configuration=Release;Platform=Win32)
 - if "%PF%" == "x64" (msbuild.exe "C:\projects\build-titanhide\TitanHide\TitanHide.sln" /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /t:Rebuild /p:Configuration=Release;Platform=x64)
